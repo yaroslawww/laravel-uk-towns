@@ -23,9 +23,11 @@ class ImportTableToDatabase extends Command
         }
         $sqlScript = Str::replace('geo_towns', config('uk-towns.table_name'), $sqlScript);
         $sqlScripts = explode('-- statement', $sqlScript);
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         foreach ($sqlScripts as $sqlScript) {
             DB::statement(trim($sqlScript));
         }
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         return 0;
     }
