@@ -20,7 +20,7 @@ class ImportPostcodesToDatabase extends Command
     {
         $tableName = (new GeoPostcode())->getTable();
 
-        if (! Schema::hasTable($tableName)) {
+        if (!Schema::hasTable($tableName)) {
             Schema::create($tableName, function (Blueprint $table) {
                 $table->string('postcode', 50)->primary();
                 $table->string('postcode_compact', 50)->index();
@@ -33,12 +33,12 @@ class ImportPostcodesToDatabase extends Command
             });
         }
 
-        if (! $this->option('no-truncate')) {
+        if (!$this->option('no-truncate')) {
             DB::table($tableName)->truncate();
         }
 
-        for ($i = 0; $i <= 3; $i ++) {
-            $filePath = __DIR__."/../../storage/uk-postcodes-{$i}.csv";
+        for ($i = 0; $i <= 3; $i++) {
+            $filePath  = __DIR__."/../../storage/uk-postcodes-{$i}.csv";
             $sqlScript = "LOAD DATA LOCAL INFILE '{$filePath}'
             INTO TABLE `{$tableName}`
             CHARACTER SET  '{$this->character()}'

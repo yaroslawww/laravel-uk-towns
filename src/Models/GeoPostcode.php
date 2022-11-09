@@ -9,6 +9,12 @@ class GeoPostcode extends Model
 {
     use HasFactory, HasCoordinates;
 
+    protected $primaryKey = 'postcode';
+
+    protected $keyType = 'string';
+
+    public $incrementing = false;
+
     protected $guarded = [];
 
     public function getTable(): string
