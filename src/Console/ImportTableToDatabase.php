@@ -16,12 +16,12 @@ class ImportTableToDatabase extends Command
     public function handle(): int
     {
         $sqlScript = file_get_contents(__DIR__.'/../../storage/uk-towns.sql');
-        if (! $sqlScript) {
+        if (!$sqlScript) {
             $this->error('Script not found.');
 
             return 1;
         }
-        $sqlScript = Str::replace('geo_towns', config('uk-towns.table_name'), $sqlScript);
+        $sqlScript  = Str::replace('geo_towns', config('uk-towns.table_name'), $sqlScript);
         $sqlScripts = explode('-- statement', $sqlScript);
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         foreach ($sqlScripts as $sqlScript) {

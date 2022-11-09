@@ -14,5 +14,4 @@ class ImportTableTest extends TestCase
         $this->assertEquals(43143, GeoTown::count());
         $this->assertEquals(43143, DB::table('uk_towns')->count());
     }
-
 }
