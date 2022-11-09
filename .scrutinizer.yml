@@ -5,6 +5,8 @@ build:
   nodes:
     analysis:
       image: default-bionic
+      services:
+        mysql: 5.7
       environment:
         php:
           version: 8.1
@@ -13,6 +15,7 @@ build:
             memory_limit: "-1"
       tests:
         override:
+          - command: mysql -h 127.0.0.1 -u root -e 'CREATE DATABASE IF NOT EXISTS lara_geo'
           - command: vendor/bin/phpunit --coverage-clover=coverage-file
             coverage:
               file: coverage-file
