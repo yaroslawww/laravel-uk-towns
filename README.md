@@ -29,8 +29,10 @@ php artisan vendor:publish --provider="UKTowns\ServiceProvider" --tag="config"
 
 ```shell
 php artisan uk-towns:import
-```
 
+# Optionally import postcodes
+php artisan uk-towns:postcodes:import
+```
 
 ## Credits
 

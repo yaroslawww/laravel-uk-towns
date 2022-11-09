@@ -29,6 +29,11 @@ class TestCase extends \Orchestra\Testbench\TestCase
             )
         );
 
-        $app['config']->set('uk-towns.table_name', 'uk_towns');
+        $options                                = $app['config']->get('database.connections.mysql.options') ?? [];
+        $options[\PDO::MYSQL_ATTR_LOCAL_INFILE] = true;
+        $app['config']->set('database.connections.mysql.options', $options);
+
+        $app['config']->set('uk-towns.tables.towns', 'uk_towns');
+        $app['config']->set('uk-towns.tables.postcodes', 'uk_postcodes');
     }
 }

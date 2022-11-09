@@ -4,7 +4,6 @@ namespace UKTowns\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
-use LaraGeoData\Contracts\ModelWithCoordinates;
 
 trait HasCoordinates
 {
@@ -36,8 +35,10 @@ trait HasCoordinates
      * Haversine formula (from Google solution example).
      * By default use radius in kilometers.
      */
-    public function scopeNearest(Builder $query, float $lat, float $lng, float $radius, int $coef = ModelWithCoordinates::HAVERSINE_COEF_KILOMETERS)
+    public function scopeNearest(Builder $query, float $lat, float $lng, float $radius, ?int $coef = null)
     {
+        $coef = $coef ?? config('uk-towns.const.kilometers');
+
         $latColName        = $this->latitudeColName();
         $lngColName        = $this->longitudeColName();
         $distanceFieldName = $this->distanceColName();
@@ -58,12 +59,12 @@ trait HasCoordinates
 
     public function scopeNearestInKilometers(Builder $query, float $lat, float $lng, float $radius)
     {
-        return $this->scopeNearest($query, $lat, $lng, $radius, ModelWithCoordinates::HAVERSINE_COEF_KILOMETERS);
+        return $this->scopeNearest($query, $lat, $lng, $radius, config('uk-towns.const.kilometers'));
     }
 
     public function scopeNearestInMiles(Builder $query, float $lat, float $lng, float $radius)
     {
-        return $this->scopeNearest($query, $lat, $lng, $radius, ModelWithCoordinates::HAVERSINE_COEF_MILES);
+        return $this->scopeNearest($query, $lat, $lng, $radius, config('uk-towns.const.miles'));
     }
 
     /**

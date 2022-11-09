@@ -15,7 +15,7 @@ class GeoTown extends Model
 
     public function getTable(): string
     {
-        return config('uk-towns.table_name');
+        return config('uk-towns.tables.towns');
     }
 
     protected static function newFactory(): GeoTownFactory

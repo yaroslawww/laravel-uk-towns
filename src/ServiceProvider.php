@@ -13,7 +13,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
 
             $this->commands([
-                \UKTowns\Console\ImportTableToDatabase::class,
+                \UKTowns\Console\ImportTownsToDatabase::class,
+                \UKTowns\Console\ImportPostcodesToDatabase::class,
             ]);
         }
     }

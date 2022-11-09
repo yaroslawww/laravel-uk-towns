@@ -2,6 +2,7 @@
 
 namespace UKTowns\Tests;
 
+use Illuminate\Support\Facades\Schema;
 use UKTowns\Models\GeoTown;
 
 class GeoTownModelTest extends TestCase
@@ -9,7 +10,9 @@ class GeoTownModelTest extends TestCase
     /** @test */
     public function country_options()
     {
-        $this->artisan('uk-towns:import');
+        if (!Schema::hasTable((new GeoTown())->getTable())) {
+            $this->artisan('uk-towns:import');
+        }
 
         $this->assertCount(4, GeoTown::countryOptions());
         $this->assertCount(12, GeoTown::regionOptions());
