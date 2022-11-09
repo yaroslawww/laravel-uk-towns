@@ -10,6 +10,8 @@ class ImportTableTest extends TestCase
     /** @test */
     public function import()
     {
+        GeoTown::query()->truncate();
+        $this->assertEquals(0, GeoTown::count());
         $this->artisan('uk-towns:import')->assertExitCode(0);
         $this->assertEquals(43143, GeoTown::count());
         $this->assertEquals(43143, DB::table('uk_towns')->count());
